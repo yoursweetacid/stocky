@@ -17,6 +17,7 @@
         </div>
     </nav>
 </head>
+
 <body class="bg-near-white">
 <article class="pa5 pt0 black-80 pb7">
   <form action="sign-up_submit" method="get" accept-charset="utf-8">
