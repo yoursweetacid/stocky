@@ -1,12 +1,12 @@
 <?php
     session_start();
-    if (isset($_SESSION['login']))
+    if (isset($_SESSION['username']))
         {}
     else
-    {$_SESSION['login']="";}
+    {$_SESSION['username']="";}
 
     include("header.php");
-    
+    //$_SESSION['username']="Nik";
 ?>
 <html>
 <!--<iframe alloytransparency seamless name="CONTENT" src="signin.php" align="center" width="100%"  style="border: 0;">Ваш браузер не поддерживает iframe</iframe>-->

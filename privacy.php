@@ -3,7 +3,7 @@ session_start();
 include("header.php")
 ?>
 <body class="bg-near-white">
-<article class="black-80 sans-serif mh6-l ph5-l mh5-ns ph4-ns mh3 ph3 pv4 mt5 bg-white br bl bt br3 br--top b--black-10">
+<article class="black-80 sans-serif mh6-l ph5-l mh5-ns ph4-ns mh3 ph3 pv4 mt3 bg-white br bl bt br3 br--top b--black-10">
 <div id="whats-in-this-privacy-policy"></div>
 <h2>What's in this Privacy Policy?</h2>
 <ul class="list tl">

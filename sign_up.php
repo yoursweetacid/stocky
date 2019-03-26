@@ -1,76 +1,81 @@
 <?php
+session_start();
 include ('bd.php');
   
-
+function refine($text)
+{
+    if (!isset($text))
+        return "";
+    return trim(htmlspecialchars(stripslashes($text)));
+}
   
-    if (isset($_POST['email'])) { $email = $_POST['email']; if ($email == '') { unset($email);} } //заносим введенный пользователем логин в переменную $login, если он пустой, то уничтожаем переменную
-    if (isset($_POST['password'])) { $password=$_POST['password']; if ($password =='') { unset($password);} }//заносим введенный пользователем пароль в переменную $password, если он пустой, то уничтожаем переменную
-    if (isset($_POST['surname'])) { $surname = $_POST['surname']; if ($surname == '') { unset($surname);} }
-    if (isset($_POST['name'])) { $name = $_POST['name']; if ($name == '') { unset($name);} }
-    if (isset($_POST['username'])) { $username = $_POST['username']; if ($username == '') { unset($username);} }
-
-    if (empty($email) or empty($password)) //если пользователь не ввел логин или пароль, то выдаем ошибку и останавливаем скрипт
-     {
-         echo "<p><a href=\"signup.php\">НАЗАД</a></p>";
-         mysqli_close($link);
-         exit ("Вы ввели не всю информацию, вернитесь назад и заполните все поля!");
-     }
-     if($_POST['password'] != $_POST['password_02']){
-        echo 'пароли не совпадают';
-        mysqli_close($link);
-        exit ("Пароли не совпадают");
-     }
-     /*
-     if(emailValid($_POST['email']) === false){
-           echo 'Не правильно введен E-mail'."\n";
-           mysqli_close($link);
-           exit ("sa");
-           }
-    */
-     
-        //если логин и пароль введены, то обрабатываем их, чтобы теги и скрипты не работали, мало ли что люди могут ввести
-        $username = stripslashes($username);
-        $username = htmlspecialchars($username);
-        $password = stripslashes($password);
-        $password = htmlspecialchars($password);
-        //удаляем лишние пробелы
-        $username = trim($username);
-        $password = trim($password);
-        $_SESSION['login']=$username;
+$username = refine($_POST["username"]);
+$password = refine($_POST["password"]);
+$email = refine($_POST["email"]);
+$name = refine($_POST["name"]);
+$surname = refine($_POST["surname"]);
+$captcha = strtolower(refine($_POST["captcha"]));
 
     
-
-    // проверка на существование пользователя с таким же логином
-    $query ="SELECT id_user FROM user WHERE username='$username'";
-    $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-    $row = mysqli_fetch_row($result);
-    if (!empty($row[0]))
-    {
-        echo "<p><a href=\"signup.html\">НАЗАД</a></p>";
-        mysqli_close($link);
-        exit ("Извините, введённый вами логин уже зарегистрирован. Введите другой логин.");
-    }
-    else
-    {
-        // если такого нет, то сохраняем данные
-        $query ="INSERT INTO user (username, password, surname, name, email) VALUES('$username','$password','$surname','$name','$email')";
-        $result2 = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-    }
-
-
-    // закрываем подключение
-    mysqli_close($link);
-
-    // Проверяем, есть ли ошибки
-    if ($result2=='TRUE')
-    {
-        echo "Вы успешно зарегистрированы! Теперь вы можете зайти на сайт. <a href='main.php'>Главная страница</a>";
-    }
-    else {
-        echo "Ошибка! Вы не зарегистрированы.";
-        mysqli_close($link);
-        exit ("Ошибка! Вы не зарегистрированы.");
-    }
-  
-
+     if (!password_verify($captcha, $_SESSION["captcha"]))
+     {
+         echo "<div class='row'>";
+         echo "<div class='col-md-6'>";
+         echo "<div class='section-title' style='text-align:left;float:left;width:100%;margin-bottom:0'>";
+         echo "<span>Wrong code</span>";
+         echo "</div>";
+         echo "</div>";
+         echo "</div>";
+         echo "<a href='sign_up_form.php'><p class='montserrat-text uppercase'>Go back</p></a>";
+         
+     }
+     else
+     {
+     
+         $duplicate = get_single("SELECT id_user FROM user WHERE username LIKE '$username'", $database);
+         if (@count($duplicate) !== 0)
+         {
+            include ("header.php");
+            include ("sign_up_error.php");
+            include ("footer.php");
+             
+         }
+         else
+         {
+             $hash = password_hash($password, PASSWORD_BCRYPT);
+             $success = $database->query("INSERT INTO user (username, password, email, name, surname) VALUES ('$username', '$hash', '$email', '$name', '$surname')");
+     
+             if ($success)
+             {
+                 $user = @get_single("SELECT id_user, username FROM user WHERE username LIKE '$username'", $database);
+     
+                 $_SESSION["id_user"] = $user["id_user"];
+                 $_SESSION["username"] = $user["username"];
+     
+                 
+                 //echo "<div class='section-title'>";
+                 //echo "<span>Registration is completed saccessfully</span>";
+                 //echo "</div>";
+                 //echo "<a href='index.php'><p class='baskerville'>Go to main</p></a>";
+                 header("Location: http://localhost/test.dev/stocky/index.php");
+                 exit;
+               
+                
+     
+             }
+             else
+             {
+                 echo "<div class='row'>";
+                 echo "<div class='col-md-6'>";
+                 echo "<div class='section-title' style='text-align:left;float:left;width:100%;margin-bottom:0'>";
+                 echo "<span>Autorization error</span>";
+                 echo "</div>";
+                 echo "</div>";
+                 echo "</div>";
+                 echo "<a href='sign_in_form.php'><p class='baskerville'>Go back</p></a>";
+                
+             }
+         }
+     }
+   
 ?>

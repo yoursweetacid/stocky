@@ -1,15 +1,22 @@
 <?php
-    $host = "localhost"; // адрес сервера
-    $database = "stocky"; // имя базы данных
-    $user = "root"; // имя пользователя
-    $user_password = ""; // пароль
-    $link = mysqli_connect($host, $user, $user_password, $database) or die("Ошибка " . mysqli_error($link));
-    
-    // изменение набора символов на cp1251
-    if (!mysqli_set_charset($link, "cp1251"))
-    {
-        echo "Ошибка при загрузке набора символов cp1251";
-        mysqli_error($link);
-        exit();
-    }
+function get_single($query, $database)
+{
+    $result = $database->query($query);
+    return $result ? $result->fetch_assoc() : $result;
+}
+function get_multiple($query, $database)
+{
+    $result = $database->query($query);
+    if (!$result)
+        return $result;
+    $container = [];
+    while ($current = $result->fetch_assoc())
+        $container[] = $current;
+    return $container;
+}
+
+$database = new mysqli("localhost", "root", "", "stocky");
+$database->query("SET NAMES 'utf8'");
+$database->query("SET CHARACTER SET 'utf8'");
+$database->query("SET SESSION collation_connection = 'utf8_general_ci'");
 ?>

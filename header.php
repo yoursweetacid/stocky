@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head >
     <link rel="stylesheet" type="text/css" href="css/tachyons.min.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/mystyle.css">
