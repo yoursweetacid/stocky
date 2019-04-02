@@ -19,33 +19,14 @@ function preview_image(event)
 
 
 </script>
-<style>
-body
-{
- width:100%;
- margin:0 auto;
- padding:0px;
- font-family:helvetica;
- background-color:#0B3861;
-}
-#wrapper
-{
- text-align:center;
- margin:0 auto;
- padding:0px;
- width:995px;
-}
-#i
-{
- max-width:300px;
-}
-</style>
+
 <form action="upload.php" method="POST" enctype="multipart/form-data">
     Select Image File to Upload:
     <input type="text" name="tags" required value="Tags">
     <input type="file" name="file" onchange="preview_image(event)">
     <input type="text" name="image_name" required>
-    <input type="submit" name="submit" value="Upload">
+    <input type="hidden" name="hue" id="hue" value="" />
+    <input type="submit" name="submit" id="get_color" value="Upload">
     
         
     <img id="i"/>

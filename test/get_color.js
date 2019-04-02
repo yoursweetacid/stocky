@@ -1,7 +1,7 @@
 
     
 
-function getAverageRGB() {
+function getHue() {
     
     var imgEl = document.getElementById("i");
     var blockSize = 5, // only visit every 5 pixels
@@ -72,10 +72,13 @@ function getAverageRGB() {
     rgb.r = h*360;
     rgb.g = s;
     rgb.b = l;
-    alert (rgb.r);
+    //alert (rgb.r);
     
+    //document.getElementById('hue').value = rgb.r;
+    document.getElementById('hue').setAttribute('value', rgb.r);
     return rgb.r;
+    
 }
-i.addEventListener("click", getAverageRGB);
+get_color.addEventListener("click", getHue);
 //var hue = getAverageRGB(document.getElementById('i'));
   

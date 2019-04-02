@@ -11,7 +11,9 @@ $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 $text = $_POST["image_name"];
 $tags = $_POST["tags"];
+$hue = $_POST["hue"];
 $id_user = $_SESSION["id_user"];
+
 if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
     // Allow certain file formats
     $allowTypes = array('jpg','png','jpeg','gif','pdf');
@@ -19,7 +21,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $db->query("INSERT into images (file_name, uploaded_on, image_name, id_user, tags) VALUES ('".$fileName."', NOW(), '$text', '$id_user', '$tags')");
+            $insert = $db->query("INSERT into images (file_name, uploaded_on, image_name, id_user, tags, hue) VALUES ('".$fileName."', NOW(), '$text', '$id_user', '$tags', '$hue')");
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{
