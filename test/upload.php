@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include the database configuration file
 include 'dbConfig.php';
 $statusMsg = '';
@@ -8,7 +9,8 @@ $targetDir = "uploads/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
+$text = $_POST["image_name"];
+$id_user = $_SESSION["id_user"];
 if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
     // Allow certain file formats
     $allowTypes = array('jpg','png','jpeg','gif','pdf');
@@ -16,7 +18,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
+            $insert = $db->query("INSERT into images (file_name, uploaded_on, image_name, id_user) VALUES ('".$fileName."', NOW(), '$text', '$id_user')");
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{
