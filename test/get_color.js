@@ -1,8 +1,9 @@
-var rgb = getAverageRGB(document.getElementById('i'));
+
     
 
-function getAverageRGB(imgEl) {
+function getAverageRGB() {
     
+    var imgEl = document.getElementById("i");
     var blockSize = 5, // only visit every 5 pixels
         defaultRGB = {r:0,g:0,b:0}, // for non-supporting envs
         canvas = document.createElement('canvas'),
@@ -72,6 +73,9 @@ function getAverageRGB(imgEl) {
     rgb.g = s;
     rgb.b = l;
     alert (rgb.r);
+    
     return rgb.r;
 }
+i.addEventListener("click", getAverageRGB);
+//var hue = getAverageRGB(document.getElementById('i'));
   
