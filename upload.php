@@ -1,11 +1,11 @@
 <?php
 session_start();
 // Include the database configuration file
-include 'dbConfig.php';
+include 'bd.php';
 $statusMsg = '';
 
 // File upload path
-$targetDir = "uploads/";
+$targetDir = "images/photos/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -21,7 +21,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $db->query("INSERT into images (file_name, uploaded_on, image_name, id_user, tags, hue) VALUES ('".$fileName."', NOW(), '$text', '$id_user', '$tags', '$hue')");
+            $insert = $database->query("INSERT into images (file_name, uploaded_on, image_name, id_user, tags, hue) VALUES ('".$fileName."', NOW(), '$text', '$id_user', '$tags', '$hue')");
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{

@@ -1,7 +1,5 @@
 <?php 
 session_start();
-$_SESSION["id_user"] = "9";
-$_SESSION["username"] = "yoursweetacid";
 ?>
 
 <script type='text/javascript'>
@@ -33,4 +31,4 @@ function preview_image(event)
     
 </form>
 <p id="demo"></p>
-<script src="get_color.js"></script>
+<script src="js/get_color.js"></script>
