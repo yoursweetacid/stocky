@@ -46,12 +46,12 @@ function show_col($query, $start, $step, $database){
         echo   '<div class="fl  tl w-75 w-50-m">';
         echo        '<b class="mr2 tl f5 f7-m lh-solid">'.$photos_image_name.'</b>';
         echo    '</div>';
-        echo    '<div class="fl dim pl1-m tr w-25 w-50-m">';
-        echo        '<span class="f7 ba br3 b--black-10 pa2 fw4 lh-solid">'; 
-        echo           '<span class="tr fw4  f6 lh-solid">38</span>';
-        echo           '<span class="tl fa fa-lg fa-heart-o" style="vertical-align: middle"></span>';
-        echo        '</span>' ;
-        echo    '</div>';
+       // echo    '<div class="fl dim pl1-m tr w-25 w-50-m">';
+       // echo        '<span class="f7 ba br3 b--black-10 pa2 fw4 lh-solid">'; 
+       // echo           '<span class="tr fw4  f6 lh-solid">38</span>';
+       // echo           '<span class="tl fa fa-lg fa-heart-o" style="vertical-align: middle"></span>';
+       // echo        '</span>' ;
+       // echo    '</div>';
         echo '</div>';
         echo '<div class="bt  mt2 b--black-10"></div>';
         echo '<div class="tl pa3 pt2">';
