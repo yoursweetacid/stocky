@@ -27,8 +27,8 @@
         </div>
         <div class="db dtc-l v-mid w-100 w-75-l tc baskerville tr-l">
             <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l underline-hover" href="index.php" title="Home">Home</a>
-            <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l underline-hover" href="stream.php" title="Stream">Stream</a>
-            <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l underline-hover" href="privacy.php" title="Privacy">Privacy</a>
+            <!--<a class="link dim dark-gray f6 f5-l dib mr3 mr4-l underline-hover" href="stream.php" title="Stream">Stream</a>
+            --><a class="link dim dark-gray f6 f5-l dib mr3 mr4-l underline-hover" href="privacy.php" title="Privacy">Privacy</a>
             <?php 
                 include ("link.php");
             ?>
