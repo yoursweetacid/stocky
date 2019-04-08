@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-<footer style="background-image:url(images/background/bg_04.gif);" class="white-80 pv4 ph5 cover">
+
+<div style="background-image:url(images/background/bg_04.gif);" class="white-80 pv4 ph5 cover sticky2">
     <p class="f6 db v-mid w-100 tc"><span class="dib mr4 mr5-ns">©2019 Stocky</span>
         
         <a class="link white-80 hover-green" href="privacy.php"> Privacy </a> /
@@ -11,5 +10,5 @@
             <span class="fw4 f7 f6-l ">by @yoursweetacid</span>
         </a>
     </p>
-</footer>
+</div>
 </html>

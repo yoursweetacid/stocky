@@ -44,6 +44,12 @@ div.sticky {
   top: 0.5em;
 }
 
+div.sticky2 {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 64em;
+}
+
 #wrapper
 {
  text-align:center;
@@ -54,4 +60,25 @@ div.sticky {
 #output_image
 {
  max-width:300px;
+}
+
+.btn-txt {
+  background:none!important;
+  color: gray;
+  border:none; 
+  padding:0!important;
+  /*font: inherit;
+  /*border is optional*/ 
+  cursor: pointer;
+  font-weight:400;
+}
+
+
+html {
+  min-height: 100%;
+  display: flex;
+}
+
+body {
+  flex: 1;
 }

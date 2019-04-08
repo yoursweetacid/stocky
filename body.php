@@ -23,8 +23,18 @@ include("show_photo.php");
                             $email = $user["email"];
                             $name = $user["name"];
                             $surname = $user["surname"];
+
+
                             echo "<h1 class=\"f4-l f4-m f5 mb2\">".$name." ".$surname."</h1>";
-                            echo "<h2 class=\"f5 fw4 f7 f5-m f5-l gray mt0\">@".$username."</h2>";
+                            echo '<form action="search.php" method="POST" accept-charset="utf-8">';
+                            echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4" style="font: inherit;" value="@'.$username.'">';
+                            echo '<input type="hidden" class="" name="query2" value="'.$username.'" />';
+                            echo '</form>';
+
+
+
+                            
+                            //echo "<h2 class=\"f5 fw4 f7 f5-m f5-l gray mt0\">@".$username."</h2>";
                             include("buttons.php");
 
                         }

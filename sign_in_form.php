@@ -18,7 +18,7 @@ include("header.php");
     </fieldset>
     
 
-    <div class="mt3"><input class="b ph3 pv2 input-reset ba br3 b--black-50 bg-white pointer f6 mb7" type="submit" value="Sign In"></div>
+    <div class="mt3"><input class="b ph3 pv2 input-reset ba br3 b--black-50 bg-white pointer f6" type="submit" value="Sign In"></div>
   </form>
 </article>
 </body>
