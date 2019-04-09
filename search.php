@@ -62,6 +62,19 @@ function search($query, $start, $step, $database){
         echo   '<div class="fl  tl w-75 w-50-m">';
         echo        '<b class="mr2 tl f5 f7-m lh-solid">'.$photos_image_name.'</b>';
         echo    '</div>';
+        echo '<form action="add_to_fav.php" method="POST" accept-charset="utf-8">';
+        echo '<input type="hidden" class="" name="id_image" value="'.$photos_id_image.'" />';
+        $id_user = $_SESSION["id_user"];
+        $query6 = "SELECT * from fav where id_image = '$photos_id_image' and id_user = '$id_user'";
+        if (count(get_single($query6, $database)) == 0 && isset($_SESSION["id_user"])){
+            
+            echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4 sans-serif" value="Like">';
+        } else if (count(get_single($query6, $database)) !== 0 && isset($_SESSION["id_user"])){
+            echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4 sans-serif" value="Unlike">';
+        } else {};
+        
+        
+        echo '</form>';
         echo '</div>';
         echo '<div class="bt  mt2 b--black-10"></div>';
         echo '<div class="tl pa3 pt2">';

@@ -35,8 +35,10 @@ function show_col($query, $start, $step, $database){
 
         echo '<form action="add_to_fav.php" method="POST" accept-charset="utf-8">';
         echo '<input type="hidden" class="" name="id_image" value="'.$photos_id_image.'" />';
-        $query6 = "SELECT * from fav where id_image = '$photos_id_image' and id_user = '$photos_id_user'";
+        $id_user = $_SESSION["id_user"];
+        $query6 = "SELECT * from fav where id_image = '$photos_id_image' and id_user = '$id_user'";
         if (count(get_single($query6, $database)) == 0 && isset($_SESSION["id_user"])){
+            
             echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4 sans-serif" value="Like">';
         } else if (count(get_single($query6, $database)) !== 0 && isset($_SESSION["id_user"])){
             echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4 sans-serif" value="Unlike">';
