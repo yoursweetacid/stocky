@@ -19,9 +19,14 @@
             <div class="fl  tl w-75 w-50-m">
                 <b class="mr2 tl f5 f7-m lh-solid">Pattern</b> 
             </div>
-            <div class="fl dim pl1-m tr w-25 w-50-m">
+            <!--<div class="fl dim pl1-m tr w-25 w-50-m">
                 <span class="f7 ba br3 b--black-10 pa2 fw4 lh-solid"> 
                     <span class="tr fw4  f6 lh-solid">38</span>
+                    <span class="tl fa fa-lg fa-heart-o" style="vertical-align: middle"></span>
+                </span> 
+            </div>-->
+            <div class="fl dim pl1-m tr w-25 w-50-m">
+                <span class="f7 ba br3 b--black-10 pa2 fw4 lh-solid"> 
                     <span class="tl fa fa-lg fa-heart-o" style="vertical-align: middle"></span>
                 </span> 
             </div>

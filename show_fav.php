@@ -1,57 +1,35 @@
 <?php
 session_start();
-
-if(isset($_POST["query"])){
-    $query = $_POST["query"];
-    $query_user = "SELECT * FROM `images` inner join user on images.id_user = user.id_user WHERE image_name like '%$query%' or hue like '%$query%' or username like '%$query%' ORDER BY images.uploaded_on DESC";
-}
-else {
-    unset($_POST["query"]);
-}
-
-if(isset($_POST["query2"])){
-    $query2 = $_POST["query2"];
-    $query_user = "SELECT * FROM `images` inner join user on images.id_user = user.id_user WHERE username = '$query2' ORDER BY images.uploaded_on DESC";
-}
-else {
-    unset($_POST["query2"]);
-}
-
-if(isset($_POST["query3"])){
-    $query3 = $_POST["query3"];
-    $query_user = "SELECT * FROM `images` inner join user on images.id_user = user.id_user WHERE tags like '%$query3%' ORDER BY images.uploaded_on DESC";
-}
-else {
-    unset($_POST["query3"]);
-}
-
-if(isset($_POST["query4"])){
-    $query4 = $_POST["query4"];
-    $query_user = "SELECT * FROM `images` inner join user on images.id_user = user.id_user WHERE hue = '$query4' ORDER BY images.uploaded_on DESC";
-}
-else {
-    unset($_POST["query4"]);
-}
+$id_user = $_SESSION['id_user'];
 
 include ("bd.php");
 include ("header.php");
-function search($query, $start, $step, $database){
-    $photos = get_multiple($query, $database);
-    for ($i = $start; $i < count($photos); $i += $step){
-        $photos_id_image = $photos[$i]["id_image"];
-        $photos_id_user = $photos[$i]["id_user"];
-        $photos_image_name = $photos[$i]["image_name"];
-        $photos_file_name = $photos[$i]["file_name"];
-        $photos_uploaded_on = $photos[$i]["uploaded_on"];
-        $photos_tags = $photos[$i]["tags"];
-        $photos_hue = $photos[$i]["hue"];
-        $photos_username = $photos[$i]["username"];
+$query_likes = "SELECT * from  fav where id_user = '$id_user'";
+function fav($query1, $start, $step, $database){
+    $likes = get_multiple($query1, $database);
+    for ($j = $start; $j < count($likes); $j += $step) {
+        $likes_id_image = $likes[$j]["id_image"];
+        $query2 = "SELECT * from images, user where user.id_user = '$id_user' and images.id_image = '$likes_id_image' union select * from images img inner join user usr on usr.id_user = img.id_user where img.id_image='$likes_id_image';";
+
+        $photos = get_multiple($query2, $database);
+        //echo '<pre>';
+        //print_r($photos);
+        //echo '</pre>';
+        $photos_id_image = $likes_id_image;
+        $photos_id_user = $photos[0]["usr.id_user"];
+        echo $photos_id_user;
+        $photos_image_name = $photos[0]["image_name"];
+        $photos_file_name = $photos[0]["file_name"];
+        $photos_uploaded_on = $photos[0]["uploaded_on"];
+        $photos_tags = $photos[0]["tags"];
+        $photos_hue = $photos[0]["hue"];
+        $photos_username = $photos[0]["username"];
+        
         echo '<div class="mt2 mb3 db b--black-10 br3 ba tc no-underline black sans-serif">'; 
         echo '<img class="db br3 br--top w-100" src="images/photos/'.$photos_file_name.'">';
         echo '<div class="pa3 tl pv2">';
         echo '<form action="search.php" method="POST" accept-charset="utf-8">';
-        
-        echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4" value="@'.$photos_username.'">';
+        echo '<input type="submit" name="submit" class="btn-txt mr2 dim link f7 fw4 sans-serif" value="@'.$photos_username.'">';
         echo    '<a href="#" class="link f7 fw4 lh-solid">';
         echo        '<span class="mr2 black-40  dim">'.$photos_uploaded_on.'</span>'; 
         echo    '</a>';
@@ -75,12 +53,12 @@ function search($query, $start, $step, $database){
         echo '<form action="search.php" method="POST" accept-charset="utf-8" class="dib">';
         echo '<input type="submit" name="submit" class="btn-txt mr2 black-60 dim" style="font: inherit; font-size:.75rem;" value="#'.ucfirst($photos_hue).'">';
         echo '<input type="hidden" class="fl" name="query4" value="'.$photos_hue.'" />';
-        echo '</form>'; 
-        echo '</div></div>';
-        
-    }
-}
+        echo '</form>';    
 
+        echo '</div></div>';
+    }
+    
+}
 ?>
 <body class="bg-near-white">
     <div class="cf ph2-ns">
@@ -147,20 +125,14 @@ function search($query, $start, $step, $database){
             <div class="bg-white b--black-10 br bl bt br3 br--top">
                 <div class="cf pa2">
                     <div class="fl w-100 w-50-ns ph2">
-                        <?php @search($query_user, 0, 2, $database); ?>
+                        <?php @fav($query_likes, 0, 2, $database); ?>
                     </div>
                     <div class="fl w-100 w-50-ns ph2">
-                    <?php @search($query_user, 1, 2, $database); ?>
+                    <?php @fav($query_likes, 1, 2, $database); ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-<?php 
-include ("footer.php");
-unset($_POST["query"]);
-unset($_POST["query2"]);
-unset($_POST["query3"]);
-unset($_POST["query4"]);
-?>
+<?php include ("footer.php"); ?>

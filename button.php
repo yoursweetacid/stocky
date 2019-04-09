@@ -1,5 +1,5 @@
 <?php
-    if ($_SESSION['username']=="") 
+    if (!isset($_SESSION['username'])) 
     {
         echo '<a href="sign_in_form.php" class="db dim tc ba br3 b--black-10 pa2 ph0 link black-80 lh-title">';
         echo '<span class="mr2-l mb1 fa fa black fa-sign-in" style="vertical-align: sup"></span>';

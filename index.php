@@ -4,8 +4,11 @@
     if (isset($_SESSION['username']))
         {}
     else
-    {$_SESSION['username']="";}
+    {unset($_SESSION['username']);}
 
+    if (isset($_SESSION["id_user"])){}
+        else
+        {unset($_SESSION['id_user']);}
     include("header.php");
     //$_SESSION['username']="Nik";
 ?>
